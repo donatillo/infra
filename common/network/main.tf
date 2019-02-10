@@ -1,12 +1,16 @@
 # VPC
 
+variable "env" {}
+variable "basename" {}
+
 resource "aws_vpc" "main" {
     cidr_block  = "10.0.0.0/16"
     
     tags {
-        Name        = "${var.basename}-vpc"
+        Name        = "${var.basename}-vpc-${var.env}"
         Creator     = "init-aws"
         Description = "Main VPC"
+        Environment = "${var.env}"
     }
 }
 
@@ -17,9 +21,10 @@ resource "aws_subnet" "public" {
     cidr_block  = "10.0.1.0/24"
 
     tags {
-        Name        = "${var.basename}-subnet-public"
+        Name        = "${var.basename}-subnet-public-${var.env}"
         Creator     = "init-aws"
         Description = "Main public subnet"
+        Environment = "${var.env}"
     }
 }
 
@@ -30,9 +35,10 @@ resource "aws_subnet" "private" {
     cidr_block  = "10.0.0.0/24"
 
     tags {
-        Name        = "${var.basename}-subnet-private"
+        Name        = "${var.basename}-subnet-private-${var.env}"
         Creator     = "init-aws"
         Description = "Main private subnet"
+        Environment = "${var.env}"
     }
 }
 
@@ -42,9 +48,10 @@ resource "aws_internet_gateway" "ig_public_subnet" {
     vpc_id      = "${aws_vpc.main.id}"
 
     tags {
-        Name        = "${var.basename}-ig"
+        Name        = "${var.basename}-ig-${var.env}"
         Creator     = "init-aws"
         Description = "Internet gateway for public subnet"
+        Environment = "${var.env}"
     }
 }
 
@@ -59,9 +66,10 @@ resource "aws_route_table" "rt" {
     }
 
     tags {
-        Name        = "${var.basename}-rt"
+        Name        = "${var.basename}-rt-${var.env}"
         Creator     = "init-aws"
         Description = "Route table for internet gateway"
+        Environment = "${var.env}"
     }
 }
 

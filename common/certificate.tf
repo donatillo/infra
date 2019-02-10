@@ -7,8 +7,9 @@ resource "aws_acm_certificate" "cert" {
     }
 
     tags {
-        Creator = "init-aws"
+        Creator     = "init-aws"
         Description = "Star certificate for domain ${var.domain}"
+        Environment = "all"
     }
 }
 

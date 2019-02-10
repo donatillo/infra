@@ -3,6 +3,7 @@ resource "aws_route53_zone" "primary" {
     tags {
         Creator = "init-aws"
         Description = "Main DNS record for domain ${var.domain}"
+        Environment = "all"
     }
 }
 
