@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 if [ ! -f "secrets.auto.tfvars" ]; then
     echo "Please create a file called 'secrets.auto.tfvars' with the following format:"
     echo "-----------------------"
@@ -7,6 +9,7 @@ if [ ! -f "secrets.auto.tfvars" ]; then
     echo "secret_key = \"MY_AWS_SECRET_KEY\""
     echo "domain     = \"MY_DOMAIN\""
     echo "basename   = \"MY_APP\'S_BASE_NAME\""
+    echo "region     = \"AWS_REGION\""
     echo "-----------------------"
     echo "Don't put this file under version control!"
     exit 1
@@ -25,7 +28,7 @@ echo '#'
 echo '# destroying common infrastructure...'
 echo '#'
 echo
-cd backend
+cd common
 rm -rf .terraform
 BUCKET=$(grep basename secrets.auto.tfvars | sed -e 's/basename\s*=\s"\(.*\)"/\1/g')-terraform
 echo "Setting up bucket ${BUCKET}"

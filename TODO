@@ -1,6 +1,6 @@
-- backend access
-- resource groups
-- DNS
-- certificate
+- backend access (ok)
+- resource groups (ok)
+- DNS (ok)
+- certificate (ok)
 - VPC
 - dynamodb lock
