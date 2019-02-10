@@ -43,4 +43,41 @@ JSON
   }
 }
 
+resource "aws_resourcegroups_group" "resg2-devl" {
+    name = "devl"
+    
+    resource_query {
+    query = <<JSON
+{
+  "ResourceTypeFilters": ["AWS::AllSupported"],
+  "TagFilters": [
+    {
+        "Key": "Environment",
+        "Values": ["all", "devl"]
+    }
+  ]
+}
+JSON
+  }
+}
+
+resource "aws_resourcegroups_group" "resg2-master" {
+    name = "master"
+    
+    resource_query {
+    query = <<JSON
+{
+  "ResourceTypeFilters": ["AWS::AllSupported"],
+  "TagFilters": [
+    {
+        "Key": "Environment",
+        "Values": ["all", "master"]
+    }
+
+  ]
+}
+JSON
+  }
+}
+
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
