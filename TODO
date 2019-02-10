@@ -2,5 +2,5 @@
 - resource groups (ok)
 - DNS (ok)
 - certificate (ok)
-- VPC
+- VPC (ok)
 - dynamodb lock
