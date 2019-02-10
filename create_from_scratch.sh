@@ -12,7 +12,6 @@ if [ ! -f "secrets.auto.tfvars" ]; then
     exit 1
 fi
 
-echo
 echo '#'
 echo '# creating backend...'
 echo '#'

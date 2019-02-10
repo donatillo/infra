@@ -25,6 +25,7 @@ Create an AWS account:
   - Create a DNS domain
   - Create a certificate for the domain
   - Configure a VPC
+  - Create resource groups
 
 Configure DNS:
 
