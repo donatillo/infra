@@ -8,6 +8,7 @@ if [ ! -f "secrets.auto.tfvars" ]; then
     echo "domain     = \"MY_DOMAIN\""
     echo "basename   = \"MY_APP\'S_BASE_NAME\""
     echo "-----------------------"
+    echo "Don't put this file under version control!"
     exit 1
 fi
 
@@ -18,7 +19,7 @@ echo '#'
 echo
 cd backend
 terraform init
-terraform apply
+terraform apply "$@"
 cd ..
 echo
 

@@ -19,7 +19,6 @@ provider "aws" {
     region     = "${var.region}"
 }
 
-
 # 
 # S3 bucket
 # 
@@ -42,6 +41,10 @@ resource "aws_s3_bucket" "backend_devl" {
 	versioning {
 		enabled = true
 	}
+    tags {
+        Creator = "init-aws-backend"
+        Description = "Terraform backend files for devl env"
+    }
 }
 
 data "template_file" "policy_master" {
@@ -60,6 +63,10 @@ resource "aws_s3_bucket" "backend_master" {
 	versioning {
 		enabled = true
 	}
+    tags {
+        Creator = "init-aws-backend"
+        Description = "Terraform backend files for production env"
+    }
 }
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
