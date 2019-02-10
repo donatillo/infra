@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::${basename}-terraform-${env}",
+      "Principal": { "AWS": "${user}" }
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::${basename}-terraform-${env}/jenkins.state",
+      "Principal": { "AWS": "${user}" }
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::${basename}-terraform-${env}/frontend.state",
+      "Principal": { "AWS": "${user}" }
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::${basename}-terraform-${env}/backend.state",
+      "Principal": { "AWS": "${user}" }
+    }
+  ]
+}
