@@ -25,47 +25,24 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
-data "template_file" "policy_devl" {
+data "template_file" "policy" {
 	template 	= "${file("policy.json")}"
 	vars {
 		user    = "${data.aws_caller_identity.current.arn}"
-        env     = "devl"
         basename = "${var.basename}"
 	}
 }
 
-resource "aws_s3_bucket" "backend_devl" {
-    bucket      = "${var.basename}-terraform-devl"
+resource "aws_s3_bucket" "backend" {
+    bucket      = "${var.basename}-terraform"
 	acl         = "private"
-    policy      = "${data.template_file.policy_devl.rendered}"
+    policy      = "${data.template_file.policy.rendered}"
 	versioning {
 		enabled = true
 	}
     tags {
         Creator = "init-aws-backend"
-        Description = "Terraform backend files for devl env"
-    }
-}
-
-data "template_file" "policy_master" {
-	template 	= "${file("policy.json")}"
-	vars {
-		user    = "${data.aws_caller_identity.current.arn}"
-        env     = "master"
-        basename = "${var.basename}"
-	}
-}
-
-resource "aws_s3_bucket" "backend_master" {
-    bucket      = "${var.basename}-terraform-master"
-	acl         = "private"
-    policy      = "${data.template_file.policy_master.rendered}"
-	versioning {
-		enabled = true
-	}
-    tags {
-        Creator = "init-aws-backend"
-        Description = "Terraform backend files for production env"
+        Description = "Terraform backend file repository"
     }
 }
 

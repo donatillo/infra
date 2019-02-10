@@ -28,7 +28,7 @@ echo
 cd backend
 rm -rf .terraform
 terraform init
-terraform destroy
+terraform destroy -auto-approve
 cd ..
 
 # vim:st=4:sts=4:sw=4:expandtab

@@ -22,6 +22,16 @@ terraform apply "$@"
 cd ..
 echo
 
+echo '#'
+echo '# creating common infrastructure...'
+echo '#'
+echo
+cd common
+terraform init
+terraform apply "$@"
+cd ..
+echo
+
 echo 'Creation completed.'
 
 # vim:st=4:sts=4:sw=4:expandtab
