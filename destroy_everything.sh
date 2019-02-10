@@ -22,6 +22,18 @@ case "$response" in
 esac
 
 echo '#'
+echo '# destroying common infrastructure...'
+echo '#'
+echo
+cd backend
+rm -rf .terraform
+BUCKET=$(grep basename secrets.auto.tfvars | sed -e 's/basename\s*=\s"\(.*\)"/\1/g')-terraform
+echo "Setting up bucket ${BUCKET}"
+terraform init -backend-config="bucket=${BUCKET}"
+terraform destroy -auto-approve
+cd ..
+
+echo '#'
 echo '# destroying backend...'
 echo '#'
 echo

@@ -1,6 +1,5 @@
 terraform {
     backend "s3" {
-        bucket = "${var.basename}-terraform"
         key    = "init-aws.state"
         region = "us-east-1"
     }
