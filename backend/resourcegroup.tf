@@ -1,5 +1,6 @@
 resource "aws_resourcegroups_group" "r" {
-    name = "init-aws-backend"
+    name = "backend"
+    description = "All backend resources."
     
     resource_query {
     query = <<JSON
