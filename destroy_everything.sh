@@ -45,7 +45,7 @@ cd terraform
 ./init.sh $1
 cp ../../secrets.auto.tfvars .
 terraform destroy -auto-approve -var env=$4
-cd ..
+cd ../..
 rm -rf backend-aws-java
 echo
 
@@ -60,7 +60,7 @@ cd terraform
 ./init.sh $1
 cp ../../secrets.auto.tfvars .
 terraform destroy -auto-approve -var env=$4
-cd ..
+cd ../..
 rm -rf frontend-aws-react
 echo
 
@@ -73,7 +73,7 @@ cd jenkins-aws/terraform
 ./init.sh $1
 cp ../../secrets.auto.tfvars .
 terraform destroy -auto-approve
-cd ..
+cd ../..
 rm -rf jenkins-aws
 echo
 
