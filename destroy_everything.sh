@@ -1,6 +1,12 @@
 #!/bin/sh
 
+set -x
 set -e
+
+if [ "$#" -ne 3 ]; then
+  echo "Usage $0 BASENAME GIT_USER GIT_PASSWORD"
+  exit 1
+fi
 
 if [ ! -f "secrets.auto.tfvars" ]; then
     echo "Please create a file called 'secrets.auto.tfvars' with the following format:"
@@ -23,6 +29,45 @@ case "$response" in
         exit 0
         ;;
 esac
+
+echo '#'
+echo '# destroying backend'
+echo '#'
+echo
+git clone https://$2:$3@github.com/give-and-take/backend-aws-java.git
+cd backend-aws-java/terraform
+rm -rf .terraform
+./init.sh $1
+terraform destroy -auto-approve
+cd ..
+rm -rf backend-aws-java
+echo
+
+echo '#'
+echo '# destroying frontend'
+echo '#'
+echo
+git clone https://$2:$3@github.com/give-and-take/frontend-aws-react.git
+cd frontend-aws-react/terraform
+rm -rf .terraform
+./init.sh $1
+terraform destroy -auto-approve
+cd ..
+rm -rf frontend-aws-react
+echo
+
+echo '#'
+echo '# destroying jenkins'
+echo '#'
+echo
+git clone https://$2:$3@github.com/give-and-take/jenkins-aws.git
+cd jenkins-aws/terraform
+rm -rf .terraform
+./init.sh $1
+terraform destroy -auto-approve
+cd ..
+rm -rf jenkins-aws
+echo
 
 echo '#'
 echo '# destroying common infrastructure...'
