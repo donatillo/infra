@@ -3,8 +3,8 @@
 set -x
 set -e
 
-if [ "$#" -ne 3 ]; then
-  echo "Usage $0 BASENAME GIT_USER GIT_PASSWORD"
+if [ "$#" -ne 4 ]; then
+  echo "Usage $0 BASENAME GIT_USER GIT_PASSWORD BRANCH"
   exit 1
 fi
 
@@ -35,6 +35,7 @@ echo '# destroying backend'
 echo '#'
 echo
 git clone https://$2:$3@github.com/give-and-take/backend-aws-java.git
+git checkout $4
 cd backend-aws-java/terraform
 rm -rf .terraform
 ./init.sh $1
@@ -48,6 +49,7 @@ echo '# destroying frontend'
 echo '#'
 echo
 git clone https://$2:$3@github.com/give-and-take/frontend-aws-react.git
+git checkout $4
 cd frontend-aws-react/terraform
 rm -rf .terraform
 ./init.sh $1
