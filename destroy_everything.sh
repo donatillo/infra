@@ -43,6 +43,7 @@ cd backend-aws-java
 git checkout $4
 cd terraform
 ./init.sh $1
+cp ../../secrets.auto.tfvars .
 terraform destroy -auto-approve
 cd ..
 rm -rf backend-aws-java
@@ -57,6 +58,7 @@ cd frontend-aws-react
 git checkout $4
 cd terraform
 ./init.sh $1
+cp ../../secrets.auto.tfvars .
 terraform destroy -auto-approve
 cd ..
 rm -rf frontend-aws-react
@@ -69,6 +71,7 @@ echo
 git clone https://$2:$3@github.com/give-and-take/jenkins-aws.git
 cd jenkins-aws/terraform
 ./init.sh $1
+cp ../../secrets.auto.tfvars .
 terraform destroy -auto-approve
 cd ..
 rm -rf jenkins-aws
