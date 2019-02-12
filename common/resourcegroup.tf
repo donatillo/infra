@@ -1,5 +1,6 @@
 resource "aws_resourcegroups_group" "resg-devl" {
     name = "init-aws-devl"
+    description = "Devl resources build by init-aws."
     
     resource_query {
     query = <<JSON
@@ -22,6 +23,7 @@ JSON
 
 resource "aws_resourcegroups_group" "resg-master" {
     name = "init-aws-master"
+    description = "Master resources build by init-aws."
     
     resource_query {
     query = <<JSON
@@ -45,6 +47,7 @@ JSON
 
 resource "aws_resourcegroups_group" "resg2-devl" {
     name = "devl"
+    description = "All devl resources."
     
     resource_query {
     query = <<JSON
@@ -63,6 +66,7 @@ JSON
 
 resource "aws_resourcegroups_group" "resg2-master" {
     name = "master"
+    description = "All master resources."
     
     resource_query {
     query = <<JSON
