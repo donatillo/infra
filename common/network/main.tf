@@ -25,6 +25,15 @@ module "subnet-az-a" {
     vpc_id            = "${aws_vpc.main.id}"
 }
 
+module "subnet-az-b" {
+    source            = "./pubsubnet"
+    env               = "${var.env}"
+    basename          = "${var.basename}"
+    availability_zone = "a"
+    cidr_block        = "10.0.2.0/24"
+    vpc_id            = "${aws_vpc.main.id}"
+}
+
 # subnet (private)
 
 resource "aws_subnet" "private" {
