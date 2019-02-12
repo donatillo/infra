@@ -35,9 +35,9 @@ echo '# destroying backend'
 echo '#'
 echo
 git clone https://$2:$3@github.com/give-and-take/backend-aws-java.git
+cd backend-aws-java
 git checkout $4
-cd backend-aws-java/terraform
-rm -rf .terraform
+cd terraform
 ./init.sh $1
 terraform destroy -auto-approve
 cd ..
@@ -49,9 +49,9 @@ echo '# destroying frontend'
 echo '#'
 echo
 git clone https://$2:$3@github.com/give-and-take/frontend-aws-react.git
+cd frontend-aws-react
 git checkout $4
-cd frontend-aws-react/terraform
-rm -rf .terraform
+cd terraform
 ./init.sh $1
 terraform destroy -auto-approve
 cd ..
@@ -64,7 +64,6 @@ echo '#'
 echo
 git clone https://$2:$3@github.com/give-and-take/jenkins-aws.git
 cd jenkins-aws/terraform
-rm -rf .terraform
 ./init.sh $1
 terraform destroy -auto-approve
 cd ..
