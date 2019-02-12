@@ -44,7 +44,7 @@ git checkout $4
 cd terraform
 ./init.sh $1
 cp ../../secrets.auto.tfvars .
-terraform destroy -auto-approve
+terraform destroy -auto-approve -var env=$4
 cd ..
 rm -rf backend-aws-java
 echo
@@ -59,7 +59,7 @@ git checkout $4
 cd terraform
 ./init.sh $1
 cp ../../secrets.auto.tfvars .
-terraform destroy -auto-approve
+terraform destroy -auto-approve -var env=$4
 cd ..
 rm -rf frontend-aws-react
 echo
