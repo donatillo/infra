@@ -30,6 +30,10 @@ case "$response" in
         ;;
 esac
 
+rm -rf backend-aws-java
+rm -rf front-aws-react
+rm -rf jenkins-aws
+
 echo '#'
 echo '# destroying backend'
 echo '#'
