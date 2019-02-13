@@ -1,8 +1,9 @@
-variable "env"               {}
-variable "basename"          {}
-variable "availability_zone" {}
-variable "cidr_block"        {}
-variable "vpc_id"            {}
+variable "env"                 {}
+variable "basename"            {}
+variable "availability_zone"   {}
+variable "cidr_block"          {}
+variable "vpc_id"              {}
+variable "internet_gateway_id" {}
 
 # subnet (public)
 
@@ -19,19 +20,6 @@ resource "aws_subnet" "public" {
     }
 }
 
-# internet gateway
-
-resource "aws_internet_gateway" "ig_public_subnet" {
-    vpc_id      = "${var.vpc_id}"
-
-    tags {
-        Name        = "${var.basename}-ig-${var.env}-${var.availability_zone}"
-        Creator     = "init-aws"
-        Description = "Internet gateway for public subnet - zone ${var.availability_zone}"
-        Environment = "${var.env}"
-    }
-}
-
 # route table (associated to the internet gateway and public subnet)
 
 resource "aws_route_table" "rt" {
@@ -39,7 +27,7 @@ resource "aws_route_table" "rt" {
 
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = "${aws_internet_gateway.ig_public_subnet.id}"
+        gateway_id = "${var.internet_gateway_id}"
     }
 
     tags {

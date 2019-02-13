@@ -14,24 +14,39 @@ resource "aws_vpc" "main" {
     }
 }
 
+# internet gateway
+
+resource "aws_internet_gateway" "ig_public_subnet" {
+    vpc_id      = "${aws_vpc.main.id}"
+
+    tags {
+        Name        = "${var.basename}-ig-${var.env}"
+        Creator     = "init-aws"
+        Description = "Internet gateway for public subnets"
+        Environment = "${var.env}"
+    }
+}
+
 # subnets (public)
 
 module "subnet-az-a" {
-    source            = "./pubsubnet"
-    env               = "${var.env}"
-    basename          = "${var.basename}"
-    availability_zone = "a"
-    cidr_block        = "10.0.2.0/24"
-    vpc_id            = "${aws_vpc.main.id}"
+    source              = "./pubsubnet"
+    env                 = "${var.env}"
+    basename            = "${var.basename}"
+    availability_zone   = "a"
+    cidr_block          = "10.0.2.0/24"
+    vpc_id              = "${aws_vpc.main.id}"
+    internet_gateway_id = "${aws_internet_gateway.ig_public_subnet.id}"
 }
 
 module "subnet-az-b" {
-    source            = "./pubsubnet"
-    env               = "${var.env}"
-    basename          = "${var.basename}"
-    availability_zone = "a"
-    cidr_block        = "10.0.3.0/24"
-    vpc_id            = "${aws_vpc.main.id}"
+    source              = "./pubsubnet"
+    env                 = "${var.env}"
+    basename            = "${var.basename}"
+    availability_zone   = "b"
+    cidr_block          = "10.0.3.0/24"
+    vpc_id              = "${aws_vpc.main.id}"
+    internet_gateway_id = "${aws_internet_gateway.ig_public_subnet.id}"
 }
 
 # subnet (private)
