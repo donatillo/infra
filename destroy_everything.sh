@@ -72,6 +72,7 @@ git clone https://$2:$3@github.com/give-and-take/jenkins-aws.git
 cd jenkins-aws/terraform
 ./init.sh $1
 cp ../../secrets.auto.tfvars .
+touch jenkins_aws.pem jenkins_aws.pub
 terraform destroy -auto-approve
 cd ../..
 rm -rf jenkins-aws
