@@ -46,6 +46,25 @@ resource "aws_iam_user_policy" "dynamo" {
                 "iam:GetServiceLinkedRoleDeletionStatus"
             ],
             "Resource": "arn:aws:iam::*:role/aws-service-role/ssm.amazonaws.com/AWSServiceRoleForAmazonSSM*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "route53:ListHostedZones",
+                "route53:GetChange"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect" : "Allow",
+            "Action" : [
+                "route53:ChangeResourceRecordSets"
+            ],
+            "Resource" : [
+                "arn:aws:route53:::hostedzone/${aws_route53_zone.primary.id}"
+            ]
         }
     ]
 }
