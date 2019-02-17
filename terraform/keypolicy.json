@@ -51,6 +51,21 @@
             "Resource": "*"
         },
         {
+            "Sid": "Allow use of the key",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "${console}"
+            },
+            "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey"
+            ],
+            "Resource": "*"
+        },
+        {
             "Sid": "Allow attachment of persistent resources",
             "Effect": "Allow",
             "Principal": {
