@@ -11,6 +11,8 @@ resource "aws_iam_user" "dynamo" {
 resource "aws_iam_user_policy" "dynamo" {
     name = "dynamo_policy"
     user = "${aws_iam_user.dynamo.name}"
+
+    policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
