@@ -1,6 +1,10 @@
 # find users
 data "aws_caller_identity" "ci" {}
 
+data "aws_iam_user" "console" {
+    user_name = "${var.console_user}"
+}
+
 # parse policy file
 data "template_file" "policy" {
     template    = "${file("keypolicy.json")}"
@@ -8,6 +12,7 @@ data "template_file" "policy" {
         root    = "${data.aws_caller_identity.ci.arn}"
         ci      = "${data.aws_caller_identity.ci.arn}"
 		dynamo  = "${aws_iam_user.dynamo.arn}"
+        console = "${data.aws_iam_user.console.arn}"
     }
 }
 

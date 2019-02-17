@@ -6,6 +6,8 @@ variable "basename" {}
 
 variable "domain" {}
 
+variable "console_user" {}
+
 variable "region" {
     default = "us-east-1"
 }

@@ -15,7 +15,7 @@
             "Sid": "Allow access for Key Administrators",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "${ci}"
+                "AWS": "${console}"
             },
             "Action": [
                 "kms:Create*",
