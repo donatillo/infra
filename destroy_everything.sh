@@ -82,7 +82,7 @@ echo '#'
 echo '# destroying common infrastructure...'
 echo '#'
 echo
-cd common
+cd terraform
 rm -rf .terraform
 BUCKET=$(grep basename secrets.auto.tfvars | sed -e 's/basename\s*=\s"\(.*\)"/\1/g')-terraform
 echo "Setting up bucket ${BUCKET}"
