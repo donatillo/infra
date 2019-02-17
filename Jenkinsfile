@@ -31,6 +31,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
+                    sh "echo Add the user/pass credentials above to Jenkins with the id 'dynamo.'"
                 }
             }
         }

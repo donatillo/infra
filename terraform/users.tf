@@ -50,10 +50,8 @@ resource "aws_iam_user_policy" "dynamo" {
 EOF
 }
 
-/*
 resource "aws_iam_access_key" "dynamo_key" {
     user = "${aws_iam_user.dynamo.name}"
 }
-*/
 
 # vim:ts=4:sw=4:sts=4:expandtab:syntax=conf
