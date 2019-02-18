@@ -65,6 +65,13 @@ resource "aws_iam_user_policy" "dynamo" {
             "Resource" : [
                 "arn:aws:route53:::hostedzone/${aws_route53_zone.primary.id}"
             ]
+        },
+        {
+            "Effect" : "Allow",
+            "Action" : [
+                "ecs:UpdateService"
+            ],
+            "Resource" : ["*"]
         }
     ]
 }
