@@ -13,7 +13,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     script {
                         sh """
-                            cd terraform 
+                            cd resourcegroup
                             terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' -backend-config='bucket=${env.MY_APP}-terraform'
                             terraform plan -no-color -out=tfplan -var \"access_key=$USER\" -var \"secret_key=$PASS\"
                         """
@@ -22,7 +22,7 @@ pipeline {
                                 input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
                             }
                         }
-                        sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
+                        sh "cd resourcegroup && terraform apply -no-color -lock=false -input=false tfplan"
                     }
                 }
             }
