@@ -8,7 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Deploy resource groups') {
+        stage('Plan resource groups') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     script {
@@ -17,12 +17,26 @@ pipeline {
                             terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' -backend-config='bucket=${env.MY_APP}-terraform'
                             terraform plan -no-color -out=tfplan -var \"access_key=$USER\" -var \"secret_key=$PASS\"
                         """
+                    }
+                }
+            }
+        }
+
+
+        stage('Deploy changes') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    script {
+                        /* TODO
                         if (env.BRANCH_NAME == "master") {
                             timeout(time: 10, unit: 'MINUTES') {
                                 input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
                             }
                         }
-                        sh "cd resourcegroup && terraform apply -no-color -lock=false -input=false tfplan"
+                        */
+                        sh """
+                            cd resourcegroup && terraform apply -no-color -lock=false -input=false tfplan && cd ..
+                        """
                     }
                 }
             }
