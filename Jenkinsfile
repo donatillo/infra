@@ -8,7 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Plan infrastructure') {
+        stage('Deploy resource groups') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     script {
@@ -22,19 +22,13 @@ pipeline {
                                 input(id: "Deploy Gate", message: "Deploy application?", ok: 'Deploy')
                             }
                         }
+                        sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
                     }
                 }
             }
         }
 
-        stage('Apply infrastrcuture') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh "cd terraform && terraform apply -no-color -lock=false -input=false tfplan"
-                    sh "echo Add the user/pass credentials above to Jenkins with the id 'dynamo.'"
-                }
-            }
-        }
+        // sh "echo Add the user/pass credentials above to Jenkins with the id 'dynamo.'"
 
     }
 }

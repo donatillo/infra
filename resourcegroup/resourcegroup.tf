@@ -1,6 +1,6 @@
 resource "aws_resourcegroups_group" "resg-devl" {
-    name = "init-aws-devl"
-    description = "Devl resources build by init-aws."
+    name = "infra-devl"
+    description = "Devl resources build by infra."
     
     resource_query {
     query = <<JSON
@@ -9,7 +9,7 @@ resource "aws_resourcegroups_group" "resg-devl" {
   "TagFilters": [
     {
         "Key": "Creator",
-        "Values": ["init-aws"]
+        "Values": ["infra"]
     },
     {
         "Key": "Environment",
@@ -22,8 +22,8 @@ JSON
 }
 
 resource "aws_resourcegroups_group" "resg-master" {
-    name = "init-aws-master"
-    description = "Master resources build by init-aws."
+    name = "infra-master"
+    description = "Master resources build by infra."
     
     resource_query {
     query = <<JSON
@@ -32,7 +32,7 @@ resource "aws_resourcegroups_group" "resg-master" {
   "TagFilters": [
     {
       "Key": "Creator",
-      "Values": ["init-aws"]
+      "Values": ["infra"]
     },
     {
         "Key": "Environment",
