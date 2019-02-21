@@ -14,7 +14,7 @@ resource "aws_subnet" "public" {
 
     tags {
         Name        = "${var.basename}-subnet-public-${var.env}-${var.availability_zone}"
-        Creator     = "init-aws"
+        Creator     = "infra"
         Description = "Main public subnet - zone ${var.availability_zone}"
         Environment = "${var.env}"
     }
@@ -32,7 +32,7 @@ resource "aws_route_table" "rt" {
 
     tags {
         Name        = "${var.basename}-rt-${var.env}-${var.availability_zone}"
-        Creator     = "init-aws"
+        Creator     = "infra"
         Description = "Route table for internet gateway - zone ${var.availability_zone}"
         Environment = "${var.env}"
     }

@@ -8,7 +8,7 @@ resource "aws_vpc" "main" {
     
     tags {
         Name        = "${var.basename}-vpc-${var.env}"
-        Creator     = "init-aws"
+        Creator     = "infra"
         Description = "Main VPC"
         Environment = "${var.env}"
     }
@@ -21,7 +21,7 @@ resource "aws_internet_gateway" "ig_public_subnet" {
 
     tags {
         Name        = "${var.basename}-ig-${var.env}"
-        Creator     = "init-aws"
+        Creator     = "infra"
         Description = "Internet gateway for public subnets"
         Environment = "${var.env}"
     }
@@ -58,7 +58,7 @@ resource "aws_subnet" "private-a" {
 
     tags {
         Name        = "${var.basename}-subnet-private-${var.env}-a"
-        Creator     = "init-aws"
+        Creator     = "infra"
         Description = "Main private subnet - zone a"
         Environment = "${var.env}"
     }
@@ -71,7 +71,7 @@ resource "aws_subnet" "private-b" {
 
     tags {
         Name        = "${var.basename}-subnet-private-${var.env}-b"
-        Creator     = "init-aws"
+        Creator     = "infra"
         Description = "Main private subnet - zone b"
         Environment = "${var.env}"
     }
