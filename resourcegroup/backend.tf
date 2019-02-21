@@ -1,6 +1,6 @@
 terraform {
     backend "s3" {
-        key    = "aws.state"
+        key    = "infra.state"
         region = "us-east-1"
     }
 }
