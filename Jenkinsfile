@@ -36,6 +36,20 @@ pipeline {
             }
         }
 
+        stage('Plan ACM certificate') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    script {
+                        sh """
+                            cd dns_certificate
+                            terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' -backend-config='bucket=${env.MY_APP}-terraform'
+                            terraform plan -no-color -out=tfplan -var 'access_key=$USER' -var 'secret_key=$PASS' -var 'main_domain=${env.MY_MAIN_DOMAIN}' -var 'domain=${env.MY_DOMAIN}'
+                        """
+                    }
+                }
+            }
+        }
+
         /*
         stage('Plan users') {
             steps {
@@ -63,8 +77,9 @@ pipeline {
                             }
                         }
                         sh """
-                            cd resourcegroup && terraform apply -no-color -lock=false -input=false tfplan && cd ..
-                            cd network       && terraform apply -no-color -lock=false -input=false tfplan && cd ..
+                            cd resourcegroup   && terraform apply -no-color -lock=false -input=false tfplan && cd ..
+                            cd network         && terraform apply -no-color -lock=false -input=false tfplan && cd ..
+                            cd dns_certificate && terraform apply -no-color -lock=false -input=false tfplan && cd ..
                         """
                     }
                 }
