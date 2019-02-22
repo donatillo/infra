@@ -1,3 +1,8 @@
+data "aws_route53_zone" "primary" {
+    name             = "${var.main_domain}"
+    private_zone     = false
+}
+
 resource "aws_iam_user" "dynamo" {
     name = "dynamo"
     
@@ -63,7 +68,7 @@ resource "aws_iam_user_policy" "dynamo" {
                 "route53:ChangeResourceRecordSets"
             ],
             "Resource" : [
-                "arn:aws:route53:::hostedzone/${aws_route53_zone.primary.id}"
+                "arn:aws:route53:::hostedzone/${data.aws_route53_zone.primary.id}"
             ]
         },
         {

@@ -1,6 +1,7 @@
 variable "access_key"   {}
 variable "secret_key"   {}
 variable "console_user" {}
+variable "main_domain"  {}
 
 provider "aws" {
     access_key      = "${var.access_key}"
