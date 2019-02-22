@@ -36,6 +36,20 @@ pipeline {
             }
         }
 
+        stage('Plan users') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    script {
+                        sh """
+                            cd users
+                            terraform init -backend-config='access_key=$USER' -backend-config='secret_key=$PASS' -backend-config='bucket=${env.MY_APP}-terraform'
+                            terraform plan -no-color -out=tfplan -var 'access_key=$USER' -var 'secret_key=$PASS' -var 'console_user=andre_nho'
+                        """
+                    }
+                }
+            }
+        }
+
         stage('Deploy changes') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'aws', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
@@ -48,6 +62,7 @@ pipeline {
                         sh """
                             cd resourcegroup && terraform apply -no-color -lock=false -input=false tfplan && cd ..
                             cd network       && terraform apply -no-color -lock=false -input=false tfplan && cd ..
+                            cd users         && terraform apply -no-color -lock=false -input=false tfplan && cd ..
                         """
                     }
                 }
